@@ -1,9 +1,38 @@
 import styles from './Hero.module.css';
+import Image from 'next/image';
 import { Play, ArrowRight, Heart, User, Shield, Lock } from 'lucide-react';
+
+import desktopBgImg from '../../public/images/hero_bg.png';
+import mobileBgImg from '../../public/images/hero_mobile.png';
 
 export default function Hero() {
   return (
     <section className={styles.hero}>
+      {/* Optimized Background Images */}
+      <div className={styles.backgroundWrapper}>
+        {/* Desktop Image */}
+        <div className={styles.desktopBg}>
+          <Image 
+            src={desktopBgImg} 
+            alt="Hero Background" 
+            fill 
+            priority 
+            quality={100}
+            className={styles.bgImage}
+          />
+        </div>
+        {/* Mobile Image */}
+        <div className={styles.mobileBg}>
+          <Image 
+            src={mobileBgImg} 
+            alt="Hero Mobile Background" 
+            fill 
+            priority 
+            className={styles.bgImage}
+          />
+        </div>
+      </div>
+
       <div className={styles.container}>
         <div className={styles.content}>
           <div className={`${styles.badge} fade-in`}>
