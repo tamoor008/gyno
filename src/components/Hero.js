@@ -1,3 +1,6 @@
+'use client';
+
+import { useState, useEffect } from 'react';
 import styles from './Hero.module.css';
 import Image from 'next/image';
 import { Play, ArrowRight, Heart, User, Shield, Lock } from 'lucide-react';
@@ -6,8 +9,27 @@ import desktopBgImg from '../../public/images/hero_bg.png';
 import mobileBgImg from '../../public/images/hero_mobile.png';
 
 export default function Hero() {
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleImageLoad = () => {
+    setIsLoading(false);
+  };
+
   return (
-    <section className={styles.hero}>
+    <>
+      {/* Full Screen Loading Overlay */}
+      <div className={`${styles.loader} ${!isLoading ? styles.loaderFadeOut : ''}`}>
+        <div className={styles.spinner}>
+          <div className={styles.logoIcon}>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+              <path d="M12 2L15 8C15 8 22 9 22 13C22 17 18 21 12 22C6 21 2 17 2 13C2 9 9 8 9 8L12 2Z" />
+            </svg>
+          </div>
+          <p>Loading GynCare...</p>
+        </div>
+      </div>
+
+      <section className={styles.hero}>
       {/* Optimized Background Images */}
       <div className={styles.backgroundWrapper}>
         {/* Desktop Image */}
@@ -19,6 +41,7 @@ export default function Hero() {
             priority 
             quality={100}
             className={styles.bgImage}
+            onLoad={handleImageLoad}
           />
         </div>
         {/* Mobile Image */}
@@ -29,6 +52,7 @@ export default function Hero() {
             fill 
             priority 
             className={styles.bgImage}
+            onLoad={handleImageLoad}
           />
         </div>
       </div>
@@ -99,5 +123,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+    </>
   );
 }
